@@ -17,30 +17,46 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            Form {
-                Section("Select multiplication table") {
-                    Stepper("\(selectedNumber) times table", value: $selectedNumber, in: 2...12)
-                }
-                
-                Section("Select number of questions") {
-                    Picker("Question", selection: $selectedNumQuestions) {
-                        ForEach(allowedNumQuestions, id: \.self) {
-                            Text($0, format: .number)
-                        }
+            VStack {
+                Form {
+                    Section("Select multiplication table") {
+                        Stepper("\(selectedNumber) times table", value: $selectedNumber, in: 2...12)
                     }
-                    .pickerStyle(.segmented)
-                }
-                
-                Section("Select difficulty") {
-                    Picker("Difficulty", selection: $selectedDifficulty) {
-                        ForEach(allowedDifficulty, id: \.self) {
-                            Text($0)
+                    
+                    Section("Select number of questions") {
+                        Picker("Question", selection: $selectedNumQuestions) {
+                            ForEach(allowedNumQuestions, id: \.self) {
+                                Text($0, format: .number)
+                            }
                         }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
+                    
+                    Section("Select difficulty") {
+                        Picker("Difficulty", selection: $selectedDifficulty) {
+                            ForEach(allowedDifficulty, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    
+                    
                 }
+                .navigationTitle("Multiply")
+                
+                Button("Start Game"
+                      // , action: startGame
+                ) {
+                    gameIsActive.toggle()
+                }
+                .padding(50)
+                .background(.green)
+                .foregroundColor(.white)
+                .clipShape(Circle())
             }
-            .navigationTitle("Multiply")
+            
+            
         }
     }
 }
