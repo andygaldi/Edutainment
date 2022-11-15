@@ -14,6 +14,12 @@ struct ContentView: View {
     @State private var selectedNumQuestions = 5
     @State private var allowedDifficulty = ["Easy", "Medium", "Hard"]
     @State private var selectedDifficulty = "Easy"
+    @State private var questions = [Question]()
+    
+    struct Question {
+        let text: String
+        let answer: Int
+    }
     
     var body: some View {
         NavigationView{
@@ -55,8 +61,15 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .clipShape(Circle())
             }
-            
-            
+        }
+    }
+    
+    func createQuestions(selectedNum: Int, numQuestions: Int, difficulty: String) {
+        questions = [Question]()
+        for _ in 1...numQuestions {
+            let randomInt = Int.random(in: 0..<13)
+            let question = Question(text: "What is \(selectedNum) x \(randomInt)?", answer: selectedNum*randomInt)
+            questions.append(question)
         }
     }
 }
